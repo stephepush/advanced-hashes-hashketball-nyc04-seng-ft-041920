@@ -1,4 +1,6 @@
 # Write your code below game_hash
+require 'pry'
+
 def game_hash
   {
     home: {
@@ -127,3 +129,40 @@ def game_hash
 end
 
 # Write code here
+def player_helper
+	game_hash[:home][:players].concat(game_hash[:away][:players])
+end
+
+def team_helper
+	game_hash[:home].slice(:team_name, :colors).merge(game_hash[:away].slice(:team_name, :colors))
+end
+
+#main methods
+def num_points_scored(selected_player)
+	found_player = player_helper.find {|player| player[:player_name] == selected_player}
+	p found_player[:points]
+end
+
+def shoe_size(selected_player)
+	found_player = player_helper.find { |player| player[:player_name] == selected_player}
+	p found_player[:shoe]
+end
+
+def player_stats(selected_player)
+	found_player = player_helper.find { |player| player[:player_name] == selected_player}
+	 found_player.slice(:points, :rebounds, :assists, :steals, :blocks, :slam_dunks, :number, :player_name, :shoe)
+end
+
+def team_colors(selected_team)
+	returned_colors = team_helper.find {
+		|team| team [:team_name] == selected_team
+	}
+end
+
+def player_numbers(selected_team)
+  
+end
+
+def team_names
+	[game_hash[:home][:team_name], game_hash[:away][:team_name]]
+end
